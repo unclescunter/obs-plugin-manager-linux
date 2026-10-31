@@ -1,0 +1,8 @@
+13:08:06.123: [distroav] plugin loaded (full NDI features) (version 6.2.1)
+13:08:06.124: [linux-vkcapture] plugin loaded successfully (version 1.5.6)
+13:08:06.125: [media-playlist-source] plugin loaded successfully (version 0.1.3)
+13:08:06.126: [obs-backgroundremoval] Plugin loaded successfully (version 1.3.7)
+13:08:06.127: [droidcam-obs] module loaded release 250 (nobara)
+13:08:06.128: [obs-websocket] [obs_module_load] you can haz websockets (Version: 5.7.4 | RPC Version: 1)
+13:08:06.129: [obs-browser]: Version 2.26.9
+13:08:06.130: [Advanced Masks] loaded version 1.1.0

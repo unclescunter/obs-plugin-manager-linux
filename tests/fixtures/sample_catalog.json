@@ -1,0 +1,52 @@
+{
+  "plugins": [
+    {
+      "name": "Tuna",
+      "url": "https://obsproject.com/forum/resources/tuna.843/",
+      "version": "1.9.12",
+      "downloads": {
+        "windows": "https://github.com/univrsal/tuna/releases/download/1.9.12/tuna-1.9.12-windows.zip",
+        "linux": "https://github.com/univrsal/tuna/releases/download/1.9.12/tuna-1.9.12-x86_64-linux-gnu.deb",
+        "macOS": "https://github.com/univrsal/tuna/releases/download/1.9.12/tuna-1.9.12-macos.pkg"
+      },
+      "platforms": {"windows": true, "linux": true, "macOS": true},
+      "recommended": false,
+      "required": false,
+      "searchString": "[tuna] Loading v",
+      "moduleName": "tuna",
+      "lastUpdated": "2026-01-01T00:00:00Z"
+    },
+    {
+      "name": "Advanced Masks",
+      "url": "https://obsproject.com/forum/resources/advanced-masks.1856/",
+      "version": "1.6.1",
+      "downloads": {
+        "windows": "https://github.com/FiniteSingularity/obs-advanced-masks/releases/download/1.6.1/obs-advanced-masks-1.6.1-windows.zip",
+        "linux": "https://github.com/FiniteSingularity/obs-advanced-masks/releases/download/1.6.1/obs-advanced-masks-1.6.1-x86_64-linux-gnu.deb",
+        "macOS": "https://github.com/FiniteSingularity/obs-advanced-masks/releases/download/1.6.1/obs-advanced-masks-1.6.1-macos.pkg"
+      },
+      "platforms": {"windows": true, "linux": true, "macOS": true},
+      "recommended": false,
+      "required": false,
+      "searchString": "[Advanced Masks] loaded version",
+      "moduleName": "obs-advanced-masks",
+      "lastUpdated": "2026-01-01T00:00:00Z"
+    },
+    {
+      "name": "Windows Only Thing",
+      "url": "https://obsproject.com/forum/resources/windows-only-thing.9999/",
+      "version": "2.0.0",
+      "downloads": {
+        "windows": "https://github.com/example/windows-only/releases/download/2.0.0/windows-only-2.0.0.zip",
+        "linux": null,
+        "macOS": null
+      },
+      "platforms": {"windows": true, "linux": false, "macOS": false},
+      "recommended": false,
+      "required": false,
+      "searchString": null,
+      "moduleName": "windows-only-thing",
+      "lastUpdated": "2026-01-01T00:00:00Z"
+    }
+  ]
+}
