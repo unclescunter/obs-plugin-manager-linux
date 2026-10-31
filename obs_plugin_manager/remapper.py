@@ -68,12 +68,15 @@ def remap_deb_tree(root: Path, dest_plugin_dir: Path) -> None:
     bin64_dest.mkdir(parents=True, exist_ok=True)
     shutil.move(str(so_path), bin64_dest / so_path.name)
 
+    # The data/assets dir is always named exactly after the module, but its
+    # parent path varies by packaging convention (observed in the wild:
+    # usr/share/obs/obs-plugins/<name>/ on older templates, and
+    # usr/share/obs/obs-modules/plugins/<name>/ on current ones) - so match
+    # by directory name alone rather than hardcoding either parent path.
     share_candidates = [
         d
         for d in root.rglob("*")
-        if d.is_dir()
-        and d.parent.name.lower() == "obs-plugins"
-        and d.name.lower() == module_name.lower()
+        if d.is_dir() and d.name.lower() == module_name.lower() and d != so_path.parent
     ]
     if share_candidates:
         share_dir = share_candidates[0]

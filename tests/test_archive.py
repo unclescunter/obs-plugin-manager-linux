@@ -108,3 +108,42 @@ def test_deb_extraction_and_remap_pulls_so_and_data(tmp_path):
 
     assert (dest / "bin" / "64bit" / "myplugin.so").exists()
     assert (dest / "data" / "locale" / "en-US.ini").exists()
+
+
+@pytest.mark.skipif(not _ar_available(), reason="binutils 'ar' not available")
+def test_deb_extraction_handles_obs_modules_plugins_convention(tmp_path):
+    # Real-world shape confirmed against an actual downloaded .deb
+    # (obs-advanced-masks 1.6.1): usr/lib/x86_64-linux-gnu/obs-modules/plugins/
+    # + usr/share/obs/obs-modules/plugins/<name>/, NOT the older
+    # usr/share/obs/obs-plugins/<name>/ convention.
+    build_dir = tmp_path / "build"
+    data_tree = build_dir / "data_tree"
+    plugin_dir = data_tree / "usr" / "lib" / "x86_64-linux-gnu" / "obs-modules" / "plugins"
+    share_dir = (
+        data_tree / "usr" / "share" / "obs" / "obs-modules" / "plugins" / "myplugin" / "shaders"
+    )
+    plugin_dir.mkdir(parents=True)
+    share_dir.mkdir(parents=True)
+    (plugin_dir / "myplugin.so").write_bytes(b"fake binary")
+    (share_dir / "mask.effect").write_text("effect source")
+
+    data_tar_path = build_dir / "data.tar.xz"
+    with tarfile.open(data_tar_path, "w:xz") as tf:
+        tf.add(data_tree, arcname=".")
+
+    deb_path = build_dir / "myplugin.deb"
+    (build_dir / "debian-binary").write_text("2.0\n")
+    subprocess.run(
+        ["ar", "rc", str(deb_path), "debian-binary", "data.tar.xz"],
+        cwd=build_dir,
+        check=True,
+    )
+
+    extracted = archive.extract_to_scratch(deb_path, tmp_path / "scratch")
+    shape = remapper.classify_tree(extracted)
+    dest = tmp_path / "built_plugin"
+    remapper.remap_to_plugin_layout(extracted, shape, dest)
+    remapper.validate_plugin_layout(dest)
+
+    assert (dest / "bin" / "64bit" / "myplugin.so").exists()
+    assert (dest / "data" / "shaders" / "mask.effect").exists()
